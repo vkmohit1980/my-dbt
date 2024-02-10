@@ -29,4 +29,4 @@ jobs:
         - name: Install dbt
           run: pip install dbt   
         - name: Check Connetion
-          run : dbt debug ./dbtlearn       
+          run : dbt debug --project-dir=./dbtlearn       

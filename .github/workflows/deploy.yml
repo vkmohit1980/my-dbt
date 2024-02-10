@@ -16,7 +16,7 @@ jobs:
       - name: Install SQLFluff       
         run: pip install sqlfluff
       - name: Lint Code
-        run: sqlfluff  lint ./dbtlearn/models
+        run: sqlfluff  lint ./dbtlearn/models --dialect=snowflake
   dbt_test:         
     runs-on: ubuntu-latest
     steps:

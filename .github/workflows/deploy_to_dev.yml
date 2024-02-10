@@ -1,8 +1,8 @@
-name: Deployment
+name: Deployment to Dev
 on:
   push:
     branches:
-      - main
+      - features/*
 jobs:
   lint:
     runs-on: ubuntu-latest

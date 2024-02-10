@@ -30,5 +30,7 @@ jobs:
           run: pip install dbt   
         - name: Run DBT help
           run : dbt --help
+        - name: Run DBT Version
+          run : dbt --version
         - name: Check Connection
           run : dbt debug --project-dir=./dbtlearn       

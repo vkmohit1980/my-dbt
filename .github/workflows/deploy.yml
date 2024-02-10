@@ -28,5 +28,7 @@ jobs:
             python-version: "3.11"            
         - name: Install dbt
           run: pip install dbt   
-        - name: Check Connetion
+        - name: Run DBT help
+          run : dbt --help
+        - name: Check Connection
           run : dbt debug --project-dir=./dbtlearn       

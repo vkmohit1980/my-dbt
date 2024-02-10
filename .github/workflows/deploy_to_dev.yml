@@ -27,7 +27,7 @@ jobs:
       SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}      
       SNOWFLAKE_PWD: ${{ secrets.SNOWFLAKE_PWD }}      
       TARGET: ${{ vars.TARGET }}      
-     steps:
+    steps:
         - name: Get code
           uses: actions/checkout@v3
         - name: Setup Python environment

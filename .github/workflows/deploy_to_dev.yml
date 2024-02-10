@@ -3,13 +3,13 @@ on:
   push:
     branches:
       - features/*
+env:
+  ACCOUNT_NAME: ${{ env.ACCOUNT_NAME }}
+  DATABASE: ${{ env.DATABASE }}
+  SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}      
+  SNOWFLAKE_PWD: ${{ secrets.SNOWFLAKE_PWD }}      
+  TARGET: ${{ env.TARGET }}      
 jobs:
-  env:
-    ACCOUNT_NAME: ${{ env.ACCOUNT_NAME }}
-    DATABASE: ${{ env.DATABASE }}
-    SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}      
-    SNOWFLAKE_PWD: ${{ secrets.SNOWFLAKE_PWD }}      
-    TARGET: ${{ env.TARGET }}
   lint:
     runs-on: ubuntu-latest
     environment: dev

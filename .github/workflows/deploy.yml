@@ -1,0 +1,32 @@
+name: Deployment
+on:
+  push:
+    branches:
+      - main
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Setup Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install SQLFluff       
+        run: pip install sqlfluff
+      - name: Lint Code
+        run: sqlfluff  lint ./dbtlearn/models
+  dbt_test:         
+    runs-on: ubuntu-latest
+    steps:
+        - name: Get code
+          uses: actions/checkout@v3
+        - name: Setup Python environment
+          uses: actions/setup-python@v4
+          with:
+            python-version: "3.11"            
+        - name: Install dbt
+          run: pip install dbt   
+        - name: Check Connetion
+          run : dbt debug ./dbtlearn       

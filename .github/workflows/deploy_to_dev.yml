@@ -34,8 +34,6 @@ jobs:
             python-version: "3.11"            
         - name: Install dbt
           run: pip install dbt-snowflake   
-        - name: Run DBT help
-          run : dbt --help
         - name: Run DBT Version
           run : dbt --version
         - name: Check Connection

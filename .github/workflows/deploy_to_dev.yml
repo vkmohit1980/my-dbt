@@ -3,6 +3,12 @@ on:
   push:
     branches:
       - features/*
+env:
+  ACCOUNT_NAME: $ACCOUNT_NAME
+  DATABASE: $DATABASE
+  SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}      
+  SNOWFLAKE_PWD: ${{ secrets.SNOWFLAKE_PWD }}      
+  TARGET: $TARGET
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -33,4 +39,4 @@ jobs:
         - name: Run DBT Version
           run : dbt --version
         - name: Check Connection
-          run : dbt debug --project-dir=./dbtlearn       
+          run : dbt debug --project-dir=./dbtlearn   --profiles-dir==./dbtlearn    

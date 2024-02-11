@@ -45,7 +45,7 @@ jobs:
         - name: Check compilation issues
           run : dbt compile --project-dir=./dbtlearn   --profiles-dir=./dbtlearn
         - name: Check source freshness
-          run : dbt compile --project-dir=./dbtlearn   --profiles-dir=./dbtlearn          
+          run : dbt source freshness --project-dir=./dbtlearn   --profiles-dir=./dbtlearn          
   dbt_deploy:                   
     runs-on: ubuntu-latest
     environment: dev

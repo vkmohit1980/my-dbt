@@ -76,4 +76,4 @@ jobs:
       - name: Deploy Models
         run : dbt run --project-dir=./dbtlearn   --profiles-dir=./dbtlearn          
       - name: Create Snaphots
-        run : dbt Snapshot --project-dir=./dbtlearn   --profiles-dir=./dbtlearn                  
+        run : dbt snapshot --project-dir=./dbtlearn   --profiles-dir=./dbtlearn                  

@@ -38,6 +38,8 @@ jobs:
           run: pip install dbt-snowflake   
         - name: Run DBT Version
           run : dbt --version
+        - name: Install dbt deps
+          run: dbt deps --project-dir=./dbtlearn
         - name: Echo My password
           run: echo "$SNOWFLAKE_PWD"  
         - name: Check Connection

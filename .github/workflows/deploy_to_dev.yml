@@ -81,3 +81,7 @@ jobs:
         run : dbt snapshot --project-dir=./dbtlearn   --profiles-dir=./dbtlearn                  
       - name: Post Models and Snapshots test
         run : dbt test --project-dir=./dbtlearn   --profiles-dir=./dbtlearn                         
+      - name: Generate Docs
+        run : dbt docs generate --project-dir=./dbtlearn   --profiles-dir=./dbtlearn                          
+      - name: Generate Lineage
+        run:   

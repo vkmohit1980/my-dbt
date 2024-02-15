@@ -1,0 +1,85 @@
+name: Deployment to Test
+on:
+  push:
+    branches:
+      - Release/*
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    environment: Test
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Setup Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install SQLFluff       
+        run: pip install sqlfluff
+      - name: Lint Code
+        run: sqlfluff  lint ./dbtlearn/models --dialect=snowflake
+  dbt_test:         
+    runs-on: ubuntu-latest
+    environment: Test
+    env:
+      ACCOUNT_NAME: ${{ vars.ACCOUNT_NAME }}
+      DATABASE: ${{ vars.DATABASE }}
+      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}      
+      SNOWFLAKE_PWD: ${{ secrets.SNOWFLAKE_PWD }}      
+      TARGET: ${{ vars.TARGET }}      
+    steps:
+        - name: Get code
+          uses: actions/checkout@v3
+        - name: Setup Python environment
+          uses: actions/setup-python@v4
+          with:
+            python-version: "3.11"            
+        - name: Install dbt
+          run: pip install dbt-snowflake   
+        - name: Run DBT Version
+          run : dbt --version
+        - name: Install dbt deps
+          run: dbt deps --project-dir=./dbtlearn
+        - name: Echo My password
+          run: echo "$SNOWFLAKE_PWD"  
+        - name: Check Connection
+          run : dbt debug --project-dir=./dbtlearn   --profiles-dir=./dbtlearn
+        - name: Check compilation issues
+          run : dbt compile --project-dir=./dbtlearn   --profiles-dir=./dbtlearn
+        - name: Check source freshness
+          run : dbt source freshness --project-dir=./dbtlearn   --profiles-dir=./dbtlearn          
+  dbt_deploy:  
+    needs: dbt_test                 
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      ACCOUNT_NAME: ${{ vars.ACCOUNT_NAME }}
+      DATABASE: ${{ vars.DATABASE }}
+      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}      
+      SNOWFLAKE_PWD: ${{ secrets.SNOWFLAKE_PWD }}      
+      TARGET: ${{ vars.TARGET }}      
+    steps:  
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Setup Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"            
+      - name: Install dbt
+        run: pip install dbt-snowflake   
+      - name: Run DBT Version
+        run : dbt --version
+      - name: Echo My password
+        run: echo "$SNOWFLAKE_PWD"  
+      - name: Check Connection
+        run : dbt debug --project-dir=./dbtlearn   --profiles-dir=./dbtlearn        
+      - name: Seed Data
+        run : dbt seed --project-dir=./dbtlearn   --profiles-dir=./dbtlearn          
+      - name: Deploy Models
+        run : dbt run --project-dir=./dbtlearn   --profiles-dir=./dbtlearn          
+      - name: Create Snaphots
+        run : dbt snapshot --project-dir=./dbtlearn   --profiles-dir=./dbtlearn                  
+      - name: Post Models and Snapshots test
+        run : dbt test --project-dir=./dbtlearn   --profiles-dir=./dbtlearn                         
+      - name: Generate Docs
+        run : dbt docs generate --project-dir=./dbtlearn   --profiles-dir=./dbtlearn                          

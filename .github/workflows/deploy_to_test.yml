@@ -71,6 +71,8 @@ jobs:
         run : dbt --version
       - name: Echo My password
         run: echo "$SNOWFLAKE_PWD"  
+      - name: Show Profile YML Contents
+        run : cat ./dbtlearn/profiles.yml
       - name: Check Connection
         run : dbt debug --project-dir=./dbtlearn   --profiles-dir=./dbtlearn        
       - name: Deploy DBT dependencies

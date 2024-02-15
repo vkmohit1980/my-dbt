@@ -73,6 +73,8 @@ jobs:
         run: echo "$SNOWFLAKE_PWD"  
       - name: Check Connection
         run : dbt debug --project-dir=./dbtlearn   --profiles-dir=./dbtlearn        
+      - name: Deploy DBT dependencies
+        run : dbt deps --project-dir=./dbtlearn                   
       - name: Seed Data
         run : dbt seed --project-dir=./dbtlearn   --profiles-dir=./dbtlearn          
       - name: Deploy Models

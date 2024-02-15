@@ -42,6 +42,8 @@ jobs:
           run: dbt deps --project-dir=./dbtlearn
         - name: Echo My password
           run: echo "$SNOWFLAKE_PWD"  
+        - name: Show Profile YML Contents
+          run : cat ./dbtlearn/profiles.yml
         - name: Check Connection
           run : dbt debug --project-dir=./dbtlearn   --profiles-dir=./dbtlearn
         - name: Check compilation issues
@@ -69,12 +71,6 @@ jobs:
         run: pip install dbt-snowflake   
       - name: Run DBT Version
         run : dbt --version
-      - name: Echo My password
-        run: echo "$SNOWFLAKE_PWD"  
-      - name: Show Profile YML Contents
-        run : cat ./dbtlearn/profiles.yml
-      - name: Check Connection
-        run : dbt debug --project-dir=./dbtlearn   --profiles-dir=./dbtlearn        
       - name: Deploy DBT dependencies
         run : dbt deps --project-dir=./dbtlearn                   
       - name: Seed Data

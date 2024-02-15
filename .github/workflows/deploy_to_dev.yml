@@ -78,7 +78,7 @@ jobs:
       - name: Seed Data
         run : dbt seed --project-dir=./dbtlearn   --profiles-dir=./dbtlearn          
       - name: Deploy Models
-        run : dbt run --project-dir=./dbtlearn   --profiles-dir=./dbtlearn          
+        run : dbt run --project-dir=./dbtlearn   --profiles-dir=./dbtlearn --full-refresh         
       - name: Create Snaphots
         run : dbt snapshot --project-dir=./dbtlearn   --profiles-dir=./dbtlearn                  
       - name: Post Models and Snapshots test

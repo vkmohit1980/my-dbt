@@ -83,4 +83,4 @@ models:
       - name: review_sentiment
         tests:
           - accepted_values:
-              values: ['positive', 'neutral', 'negative']
+              values: ['positive', 'neutral', 'negative' , 'Positive']

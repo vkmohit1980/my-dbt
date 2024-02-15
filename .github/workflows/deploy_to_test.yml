@@ -51,7 +51,7 @@ jobs:
   dbt_deploy:  
     needs: dbt_test                 
     runs-on: ubuntu-latest
-    environment: dev
+    environment: Test
     env:
       ACCOUNT_NAME: ${{ vars.ACCOUNT_NAME }}
       DATABASE: ${{ vars.DATABASE }}
